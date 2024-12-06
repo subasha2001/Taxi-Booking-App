@@ -1,0 +1,85 @@
+/* Main Header Styles */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.menu-icon {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.logo {
+    max-width: 75px;
+    font-weight: bold;
+}
+img{
+    width: 100%;
+}
+.links a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+/* Side Navigation Styles */
+.side-nav {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: #444;
+    color: #fff;
+    transition: left 0.3s;
+    z-index: 15;
+}
+
+.side-nav.open {
+    left: 0;
+}
+
+.side-nav ul {
+    list-style-type: none;
+    padding: 20px;
+}
+
+.side-nav li {
+    margin: 10px 0;
+}
+
+.side-nav a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.news-ticker {
+    background-color: #ff9800;
+    color: #fff;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.news-ticker h2 {
+    display: inline-block;
+    animation: scroll-left 10s linear infinite;
+    margin: 0;
+}
+
+@keyframes scroll-left {
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(-100%);
+    }
+}

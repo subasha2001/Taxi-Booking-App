@@ -1,0 +1,19 @@
+<nav>
+    <div class="menu-icon" (click)="toggleSideNav()">&#9776;</div>
+    <div class="logo"><img src="/assets/images/logo.gif" alt=""></div>
+    <div class="links">
+        <a href="#contact">Contact</a>
+        <a href="#about">About Us</a>
+    </div>
+</nav>
+<div class="news-ticker">
+    <h2>{{ tickerMessage }}</h2>
+</div>
+<aside class="side-nav" [class.open]="sideNavOpen">
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#about">About Us</a></li>
+    </ul>
+</aside>

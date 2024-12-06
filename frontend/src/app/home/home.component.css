@@ -1,0 +1,130 @@
+.home-background {
+    background-image: url('/assets/images/home-bg.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.booking-form {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 500px;
+    width: 100%;
+    position: relative;
+}
+
+.relative {
+    position: relative;
+}
+
+.booking-form h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.form-row input {
+    flex: 1;
+}
+
+.booking-form input,
+.booking-form button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.booking-form button {
+    background-color: #28a745;
+    color: #fff;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.booking-form button:hover {
+    background-color: #218838;
+}
+
+.suggestions-container {
+    position: absolute;
+    top: 42%;
+    left: 24px;
+    width: 89%;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 11);
+    border-radius: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 10;
+}
+
+.suggestions-container ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.suggestions-container li {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.suggestions-container li:hover {
+    background-color: #f0f0f0;
+}
+
+.cabs {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cab-selection {
+    margin-top: 20px;
+}
+
+.cab-selection h3 {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.cab-type-icon {
+    display: inline-block;
+    margin-right: 20px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.cab-type-icon img {
+    width: 110%;
+    height: 66%;
+    display: block;
+    margin: 0 auto;
+    border-radius: 8px;
+}
+
+.cab-type-icon.selected img {
+    background-color: #f0f0f0;
+}
+
+.cab-type-icon span {
+    display: block;
+    font-size: 14px;
+    margin-top: 5px;
+}
+@media screen and (max-width: 768px) and (min-width: 300px) {
+
+}
