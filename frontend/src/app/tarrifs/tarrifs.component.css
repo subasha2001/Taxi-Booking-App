@@ -1,0 +1,254 @@
+.tarrif-bg {
+    background-color: #F5F5F5;
+}
+
+.tarrif-container {
+    padding: 80px 0;
+    font-family: Arial, sans-serif;
+    border-radius: 10px;
+    margin: 20px auto;
+}
+
+.form-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 0 24px;
+    max-width: 70%;
+    margin: 0 auto 20px;
+}
+
+.form-toggle button {
+    flex: 1;
+    padding: 12px 24px;
+    font-size: 18px;
+    border: none;
+    border-bottom: 2px solid transparent;
+    text-align: center;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-toggle button.active {
+    background-color: #FFB800;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3);
+}
+
+.form-toggle button:hover {
+    background-color: #0056b3;
+}
+
+.tarrif-section {
+    padding: 20px;
+    max-width: 70%;
+    margin: 0 auto;
+}
+
+h3,
+h4 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333333;
+}
+
+h4 {
+    font-size: 18px;
+    color: #6e6e6e;
+}
+
+.cab-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.cab-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    transition: transform 0.3s ease;
+}
+
+.cab-card:hover {
+    transform: scale(1.05);
+}
+
+.cab-image {
+    width: 270px;
+    height: 100%;
+    object-fit: cover;
+    padding: 10px;
+    border-right: 2px solid #ccc;
+}
+
+.cab-details {
+    padding: 15px;
+    flex: 1;
+}
+
+.cab-details h5 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #FFB800;
+}
+
+.cab-details p {
+    font-size: 16px;
+    color: #0066FF;
+    margin: 10px 0;
+}
+
+.betta-hills, .waiting-price{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.terms {
+    margin-top: 30px;
+    font-size: 16px;
+    color: #555;
+}
+
+.terms h5 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #4CAF50;
+    padding: 10px 10px 10px 5px;
+    background-color: #fdd3135e;
+}
+
+.terns-n-img {
+    display: flex;
+    align-items: center;
+    gap: 46px;
+    max-width: 90%;
+    margin: 0 auto;
+    padding: 80px 0;
+}
+
+.terms-n-conditions {
+    display: flex;
+    gap: 20px;
+}
+
+.terms-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 48%;
+}
+
+.terms-list li {
+    margin-bottom: 10px;
+}
+
+.terns-n-img img {
+    max-width: 30%;
+    height: 50%;
+    margin-bottom: 20px;
+}
+
+ul {
+    list-style: none;
+    padding-left: 0;
+    max-width: 50%;
+    margin: 15px 15px 0 25px;
+}
+
+li {
+    position: relative;
+    padding: 10px;
+    font-size: 18px;
+    margin-bottom: 12px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    border: 1px solid #e0e0e0;
+    transition: background-color 0.3s;
+}
+
+li:hover {
+    background-color: #e0f7fa;
+}
+
+li::before {
+    content: "";
+    position: absolute;
+    left: -30px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    background-image: url('/assets/images/tnc.png');
+    background-size: cover;
+}
+
+li span {
+    color: #555;
+    line-height: 25px;
+}
+
+@media (max-width: 768px) {
+    .form-toggle button {
+        font-size: 16px;
+        padding: 10px 20px;
+    }
+
+    h3 {
+        font-size: 20px;
+    }
+
+    h5,
+    p {
+        margin: 0 !important;
+    }
+
+    p:nth-child(2) {
+        margin: 5px 0 !important;
+    }
+
+    .cab-image {
+        width: 120px;
+    }
+
+    .cab-details h4 {
+        font-size: 18px;
+    }
+
+    .cab-details {
+        padding: 15px 15px 1px;
+    }
+
+    .cab-details p {
+        font-size: 14px;
+    }
+
+    .terms {
+        font-size: 14px;
+    }
+
+    ul {
+        max-width: 90%;
+        margin: 0 auto;
+        width: auto !important;
+    }
+
+    .terns-n-img,
+    .terms-n-conditions, .betta-hills, .waiting-price {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .terns-n-img {
+        padding: 15px 0;
+        gap: 15px;
+    }
+    .tarrif-section{max-width: 90%;}
+}

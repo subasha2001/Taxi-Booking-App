@@ -1,0 +1,62 @@
+<form #bookingForm="ngForm">
+    <div class="form-row">
+        <input type="text" placeholder="Full Name" name="fullname" required [(ngModel)]="form.fullname" />
+        <input type="text" placeholder="Mobile Number" name="mobile" required [(ngModel)]="form.mobile" />
+        <!-- <button type="button" (click)="sendOTP()" [disabled]="otpSent">Send OTP</button> -->
+    </div>
+
+    <!-- <div class="form-row" *ngIf="otpSent && !otpVerified">
+        <input type="text" placeholder="Enter OTP" name="otp" required [(ngModel)]="form.otp" />
+        <button type="button" (click)="verifyOTP()">Verify OTP</button>
+    </div> -->
+
+    <div class="form-row">
+        <input type="date" name="date" required [(ngModel)]="form.date" />
+        <input type="time" name="time" required [(ngModel)]="form.time" />
+    </div>
+
+    <div class="form-row">
+        <input type="text" placeholder="Pickup Location" name="pickup" required [(ngModel)]="form.pickup"
+            (input)="onLocationInput('pickup', $event)" />
+        <div *ngIf="pickupSuggestions.length" class="suggestions-container">
+            <ul>
+                <li *ngFor="let suggestion of pickupSuggestions" (click)="selectLocation('pickup', suggestion)">
+                    {{ suggestion }}
+                </li>
+            </ul>
+        </div>
+
+        <input type="text" placeholder="Drop Location" name="drop" required [(ngModel)]="form.drop"
+            (input)="onLocationInput('drop', $event)" />
+        <div *ngIf="dropSuggestions.length" class="suggestions-container">
+            <ul>
+                <li *ngFor="let suggestion of dropSuggestions" (click)="selectLocation('drop', suggestion)">
+                    {{ suggestion }}
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="form-row email">
+        <input type="email" placeholder="Email" name="email" required [(ngModel)]="form.email" />
+    </div>
+
+    <div class="cab-selection">
+        <h3>Select Cab Type</h3>
+        <div class="cabs">
+            <div *ngFor="let cab of cabTypes" class="cab-type-icon" [class.selected]="cab.selected"
+                (click)="selectCabType(cab)">
+                <img [src]="cab.selected ? cab.icon1 : cab.icon2" alt="{{ cab.name }} icon" class="cab-icon" />
+                <span>{{ cab.name }}<br>{{ cab.fare }}km/hr</span>
+            </div>
+        </div>
+    </div>
+
+    <button (click)="getEstimate()" [disabled]="price">Get Estimate</button>
+
+    <div *ngIf="price">
+        <p>Estimated Price: {{ price | currency:'INR' }}</p>
+        <p *ngIf="distance">Distance: {{ distance }} km</p>
+        <button (click)="bookTaxi()">Book</button>
+    </div>
+</form>

@@ -1,79 +1,117 @@
-/* Main Header Styles */
 nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
-    background-color: #333;
+    padding: 0 0 0 15px;
+    background-color: #FFB800;
     color: #fff;
     position: sticky;
     top: 0;
     z-index: 10;
+    border-bottom: 3px solid #333;
 }
 
 .menu-icon {
-    font-size: 24px;
+    font-size: 30px;
     cursor: pointer;
+    color: #333;
+    transition: color 0.3s;
+}
+
+.menu-icon:hover {
+    color: #0066FF;
 }
 
 .logo {
-    max-width: 75px;
+    max-width: 100px;
     font-weight: bold;
+    text-align: center;
 }
-img{
+
+.logo img {
     width: 100%;
+    height: auto;
 }
+
+/* Links Styles */
 .links a {
-    color: #fff;
+    color: #333;
     text-decoration: none;
-    margin: 0 10px;
+    margin: 0 20px;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.links a:hover {
+    color: #0066FF;
+    /* Electric Blue */
 }
 
 /* Side Navigation Styles */
 .side-nav {
     position: fixed;
-    top: 0;
+    top: 103px;
     left: -250px;
+    /* Initially hidden */
     width: 250px;
     height: 100%;
-    background-color: #444;
+    background-color: #333;
+    /* Dark background for sidenav */
     color: #fff;
-    transition: left 0.3s;
+    transition: left 0.3s ease;
     z-index: 15;
+    box-shadow: 2px 0px 15px rgba(0, 0, 0, 0.5);
+    /* Shadow effect */
 }
 
+/* When the side-nav is open */
 .side-nav.open {
     left: 0;
 }
 
 .side-nav ul {
     list-style-type: none;
-    padding: 20px;
+    padding: 20px 0;
+    margin: 0;
 }
 
 .side-nav li {
-    margin: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .side-nav a {
+    display: block;
+    padding: 15px 10px;
+    font-size: 18px;
     color: #fff;
     text-decoration: none;
+    transition: background-color 0.3s ease;
 }
 
+.side-nav a:hover {
+    background-color: #FFB800;
+    color: #333;
+}
+
+/* News Ticker */
 .news-ticker {
-    background-color: #ff9800;
+    background-color: #FF9800;
     color: #fff;
     text-align: center;
     overflow: hidden;
     white-space: nowrap;
+    padding: 10px 0;
 }
 
 .news-ticker h2 {
     display: inline-block;
-    animation: scroll-left 10s linear infinite;
+    animation: scroll-left 15s linear infinite;
     margin: 0;
+    font-size: 18px;
+    font-weight: 600;
 }
 
+/* Animation for scrolling ticker */
 @keyframes scroll-left {
     from {
         transform: translateX(100%);
@@ -81,5 +119,39 @@ img{
 
     to {
         transform: translateX(-100%);
+    }
+}
+
+@media (max-width: 768px) {
+    nav {
+        padding: 10px;
+    }
+
+    .menu-icon {
+        font-size: 28px;
+    }
+
+    .logo img {
+        max-width: 80px;
+    }
+
+    .links a {
+        margin: 0 10px;
+    }
+
+    .side-nav {
+        width: 220px;
+    }
+
+    .side-nav ul {
+        padding: 15px;
+    }
+
+    .side-nav li {
+        margin: 15px 0;
+    }
+
+    .side-nav a {
+        font-size: 16px;
     }
 }

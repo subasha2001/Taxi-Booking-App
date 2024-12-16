@@ -1,0 +1,84 @@
+<div class="tarrif-bg">
+    <div class="tarrif-container">
+        <div class="form-toggle">
+            <button [class.active]="isOneWay" (click)="toggleForm(true)">One Way</button>
+            <button [class.active]="!isOneWay" (click)="toggleForm(false)">Round Trip</button>
+        </div>
+
+        <!-- One Way Tariffs Section -->
+        <div class="tarrif-section" *ngIf="isOneWay">
+            <h3>One Way Tariffs</h3>
+            <h4>Minimum 130kms</h4>
+            <div class="cab-cards">
+                <div class="cab-card" *ngFor="let cab of oneWayCabs">
+                    <img [src]="cab.image" alt="{{ cab.name }}" class="cab-image" />
+                    <div class="cab-details">
+                        <h5>{{ cab.name }}</h5>
+                        <div class="betta-hills">
+                            <p><b>Driver Betta :</b> {{ cab.betta | currency:"INR" }}</p>
+                            <p><b>Hills :</b> {{ cab.betta | currency:"INR" }}</p>
+                        </div>
+                        <div class="waiting-price">
+                            <p>{{ cab.rsPerKm | currency:"INR" }}/Km</p>
+                            <p>Waiting {{ cab.rsPerKm | currency:"INR" }} /Hour</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Round Trip Tariffs Section -->
+        <div class="tarrif-section" *ngIf="!isOneWay">
+            <h3>Round Trip Tariffs</h3>
+            <h4>Minimum 250kms</h4>
+            <div class="cab-cards">
+                <div class="cab-card" *ngFor="let cab of roundTripCabs">
+                    <img [src]="cab.image" alt="{{ cab.name }}" class="cab-image" />
+                    <div class="cab-details">
+                        <h5>{{ cab.name }}</h5>
+                        <div class="betta-hills">
+                            <p><b>Driver Betta :</b> {{ cab.betta | currency:"INR" }}</p>
+                            <p><b>Hills :</b> {{ cab.betta | currency:"INR" }}</p>
+                        </div>
+                        <div class="waiting-price">
+                            <p>{{ cab.rsPerKm | currency:"INR" }}/Km</p>
+                            <p>Waiting {{ cab.rsPerKm | currency:"INR" }} /Hour</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terms & Conditions Section outside the tarrif-container -->
+    <div class="terms">
+        <h5>Terms & Conditions</h5>
+        <div class="terns-n-img">
+            <img src="/assets/images/termsNconditions.png" alt="Terms and Conditions">
+            <div class="terms-n-conditions">
+                <ul class="terms-list">
+                    <li><span>Maximum 4 person capacity for sedan.</span></li>
+                    <li><span>Maximum 7 passenger capacity for SUV.</span></li>
+                    <li><span>Minimum 130kms coverage for one way trip.</span></li>
+                    <li><span>Minimum 250kms coverage for round trip.</span></li>
+                    <li><span>One day Round trip close by 11pm at ur pickup.</span></li>
+                    <li><span>Waiting charges per Hour SEDAN - Rs.150 | SUV - Rs. 200 | INNOVA - Rs.200 | INNOVA CRYSTA
+                            - Rs.250 in between ur trip.</span></li>
+                    <li><span>Food break, tea break & restroom no waiting charges.</span></li>
+                    <li><span>Cancellation charges Rs.500 after driver arrived.</span></li>
+                    <li><span>Luggage load in carrier Rs.300 if Mention in QT.</span></li>
+                </ul>
+                <ul>
+                    <li><span>Note down starting and ending km is must.</span></li>
+                    <li><span>Permit charges and Driver Bata is same as quoted.</span></li>
+                    <li><span>Toll charges will be paid through fastag by Driver.</span></li>
+                    <li><span>Payment transfer by online or by cash.</span></li>
+                    <li><span>EOT calculated running km, Toll by fastag & rest all.</span></li>
+                    <li><span>Toll fees, interstate Permit, Hill charg pet charges (if any) are extra.</span></li>
+                    <li><span>For Bangalore minimum 300km per day for Round Trip.</span></li>
+                    <li><span>One day means One calendar day (from midnight 12 to next midnight 12).</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

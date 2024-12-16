@@ -1,15 +1,16 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
   sideNavOpen = false; // State to toggle side navigation
-  tickerMessage = 'Welcome to our Taxi Booking Service! Reliable and Fast!';
+  tickerMessage = 'Welcome to Drop Taxi, Your Journey Our Priority!';
 
   toggleSideNav() {
     this.sideNavOpen = !this.sideNavOpen;

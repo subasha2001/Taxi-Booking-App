@@ -4,7 +4,7 @@ import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient, withFetch } from '@angular/common/http';
-import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -13,6 +13,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(), 
     provideAnimationsAsync(), 
     provideAnimationsAsync(),
-    provideHttpClient(withFetch())
+    provideHttpClient(withFetch()),
+    BrowserAnimationsModule 
   ]
 };
