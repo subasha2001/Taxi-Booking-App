@@ -1,12 +1,17 @@
 .tarrif-bg {
-    background-color: #F5F5F5;
+    background:#f9f9f9;
 }
 
 .tarrif-container {
-    padding: 80px 0;
+    padding: 5% 0;
     font-family: Arial, sans-serif;
     border-radius: 10px;
     margin: 20px auto;
+    background-image: url("/assets/images/home-bg2.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .form-toggle {
@@ -15,7 +20,7 @@
     gap: 20px;
     padding: 0 24px;
     max-width: 70%;
-    margin: 0 auto 20px;
+    margin: 0 auto;
 }
 
 .form-toggle button {
@@ -54,12 +59,12 @@ h4 {
     font-size: 24px;
     margin-bottom: 20px;
     text-align: center;
-    color: #333333;
+    color: #fff;
+    text-shadow: 1px 1px black;
 }
 
 h4 {
     font-size: 18px;
-    color: #6e6e6e;
 }
 
 .cab-cards {
@@ -95,9 +100,10 @@ h4 {
 }
 
 .cab-details h5 {
-    font-size: 20px;
+    font-size: 15px;
     margin-bottom: 10px;
     color: #FFB800;
+    text-align: center;
 }
 
 .cab-details p {
@@ -215,7 +221,7 @@ li span {
     }
 
     .cab-image {
-        width: 120px;
+        width: 140px;
     }
 
     .cab-details h4 {
@@ -227,7 +233,7 @@ li span {
     }
 
     .cab-details p {
-        font-size: 14px;
+        font-size: 10px;
     }
 
     .terms {

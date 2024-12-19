@@ -19,8 +19,7 @@
                             <p><b>Hills :</b> {{ cab.betta | currency:"INR" }}</p>
                         </div>
                         <div class="waiting-price">
-                            <p>{{ cab.rsPerKm | currency:"INR" }}/Km</p>
-                            <p>Waiting {{ cab.rsPerKm | currency:"INR" }} /Hour</p>
+                            <p>Waiting :{{ cab.waiting | currency:"INR" }} /Hour</p>
                         </div>
                     </div>
                 </div>
@@ -41,8 +40,7 @@
                             <p><b>Hills :</b> {{ cab.betta | currency:"INR" }}</p>
                         </div>
                         <div class="waiting-price">
-                            <p>{{ cab.rsPerKm | currency:"INR" }}/Km</p>
-                            <p>Waiting {{ cab.rsPerKm | currency:"INR" }} /Hour</p>
+                            <p>Waiting {{ cab.waiting | currency:"INR" }} /Hour</p>
                         </div>
                     </div>
                 </div>
@@ -75,8 +73,8 @@
                     <li><span>Payment transfer by online or by cash.</span></li>
                     <li><span>EOT calculated running km, Toll by fastag & rest all.</span></li>
                     <li><span>Toll fees, interstate Permit, Hill charg pet charges (if any) are extra.</span></li>
-                    <li><span>For Bangalore minimum 300km per day for Round Trip.</span></li>
-                    <li><span>One day means One calendar day (from midnight 12 to next midnight 12).</span></li>
+                    <li><span>For Bangalore minimum 300km per day for Round Trip(Morning 6am to Night 10pm).</span></li>
+                    <li><span>One day means One calendar day (Morning 6am to Night 12pm).</span></li>
                 </ul>
             </div>
         </div>

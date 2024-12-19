@@ -3,11 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TaxiBookingService } from '../services/taxi-booking.service';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 @Component({
   selector: 'one-way-form',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, NgxMaterialTimepickerModule],
   templateUrl: './one-way-form.component.html',
   styleUrl: './one-way-form.component.css'
 })
@@ -28,20 +29,23 @@ export class OneWayComponent {
   dropSuggestions: string[] = [];
   price: number | null = null;
   distance: number = 0;
+  duration:number = 0;
+  fareVisible: boolean = false;
+  showCabDetails: boolean = true;
+  selectedCab:string='';
 
   cabTypes = [
-    { name: 'Sedan Dzire', icon1: 'assets/images/sedan_yellow.png', icon2: 'assets/images/sedan_black.png', selected: false, fare: 14 },
-    { name: 'SUV Xylo', icon1: 'assets/images/suv_yellow.png', icon2: 'assets/images/suv_black.png', selected: false, fare: 19 },
-    { name: 'Innova', icon1: 'assets/images/sedan_yellow.png', icon2: 'assets/images/sedan_black.png', selected: false, fare: 20 },
-    { name: 'Innova Crysta', icon1: 'assets/images/suv_yellow.png', icon2: 'assets/images/suv_black.png', selected: false, fare: 26 }
+    { name: 'Sedan-Dzire', betta: 400, icon1: 'assets/images/sedan_black.png', icon2: 'assets/images/sedan_yellow.png', img:'/assets/images/cab1.png', fare: 14 },
+    { name: 'SUV', betta: 500, icon1: 'assets/images/suv_black.png', icon2: 'assets/images/suv_yellow.png', img:'/assets/images/cab2.jpg', fare: 19 },
+    { name: 'Innova', betta: 500, icon1: 'assets/images/innova_black.png', icon2: 'assets/images/innova_yellow.png', img:'/assets/images/cab3.png', fare: 20 },
+    { name: 'Innova-Crysta', betta: 600, icon1: 'assets/images/crysta_black.png', icon2: 'assets/images/crysta_yellow.png', img:'/assets/images/cab4.jpg', fare: 26 }
   ];
 
-  constructor(private http: HttpClient, private taxiBookingService: TaxiBookingService) { }
+  constructor(private taxiBookingService: TaxiBookingService) { }
 
-  selectCabType(cab: any) {
-    this.cabTypes.forEach(c => c.selected = false);
-    cab.selected = true;
-    this.form.cabType = cab.name;
+  selectCab(cab: any) {
+    this.selectedCab = cab;
+    this.form.cabType = cab;
   }
 
   onLocationInput(type: string, event: any) {
@@ -101,54 +105,74 @@ export class OneWayComponent {
   //   )
   // }
 
-  getEstimate() {
-    const { fullname, mobile, date, time, pickup, drop, email } = this.form;
+  viewPrice() {
+    const { fullname, mobile, date, time, email, pickup, drop } = this.form;
 
-    if (!fullname || !mobile || !date || !time || !pickup || !drop || !email) {
-      alert('Please fill all the fields to get an estimate.');
+    if (!fullname || !mobile || !date || !time || !email || !pickup || !drop) {
+      alert('Please fill in all the required fields before viewing the fare.');
       return;
     }
+
     this.taxiBookingService.getDistance(pickup, drop).subscribe((response: any) => {
-      const distanceInKm = response.distance / 1000;
-      if (distanceInKm < 250) {
+      const distanceInKm = response.distance;
+      const duration = response.duration;
+      if (distanceInKm < 130) {
         alert('Note: The minimum distance is 130 kms.');
       }
       this.distance = Math.max(distanceInKm, 130);
-      this.price = this.distance * 10;
+      this.duration = duration;
+      this.fareVisible = true;
       this.notifyAdmin('enquiry');
     });
   }
 
+  showCabDetailsView() { this.showCabDetails = true }
+  showTripDetailsView() { this.showCabDetails = false }
+
+  calculateTotalPrice(cab: any): number {
+    const totalPrice = this.distance * cab.fare + cab.betta;
+    this.price = totalPrice;
+    return totalPrice;
+  }
+  
+
+  bookCab(cabName: string) {
+    this.form.cabType = cabName;
+    alert(`You have selected ${cabName} cab.`);
+    this.notifyAdmin('booking');
+    this.notifyUser();
+    window.location.reload();
+  }
+
   notifyAdmin(type: string) {
-    const { fullname, mobile, date, time, pickup, drop, cabType, email } = this.form;
+    const { fullname, mobile, date, time, pickup, drop, cabType } = this.form;
     let message = '';
     if (type === 'booking') {
-      message =
-        `Dear Admin,\n\n` +
-        `Type: One Way (Booking)\n` +
-        `A new taxi booking has been successfully placed🚖. Below are the booking details for your reference:\n\n` +
-        `Customer Name: ${fullname}\n` +
-        `Customer Contact: ${mobile}\n` +
-        `Booking Date: ${date}\n` +
-        `Booking Time: ${time}\n` +
-        `PickUp location: ${pickup}\n` +
-        `Drop location: ${drop}\n` +
-        `Distance: ${this.distance} km\n` +
-        `Estimated Price: ₹${this.price}\n` +
-        `Cab Type: ${cabType}`;
+      message = 
+    `Trip Type: One Way (Booking)\n` +
+    `Customer Name: ${fullname}\n` +
+    `Customer Contact: ${mobile}\n` +
+    `PickUp Location: ${pickup}\n` +
+    `Drop Location: ${drop}\n` +
+    `Booking Date: ${date}\n` +
+    `Booking Time: ${time}\n` +
+    `Cab Type: ${cabType}\n` +
+    `Distance: ${this.distance} km\n` +
+    `Duration: ${this.duration} km\n` +
+    `Total Fare: ₹${this.price}\n`
 
     } else if (type === 'enquiry') {
-      message =
-        `New Enquiry Received 🚨\n` +
-        `Type: One Way (Enquiry)\n\n` +
-        `Dear Admin,\n` +
-        `A new enquiry has been submitted via the contact form. Below are the details for your review:\n\n` +
-        `Name: ${fullname}\n` +
-        `Email: ${email}\n` +
-        `Phone: ${mobile}\n` +
-        `PickUp: ${pickup}\n` +
-        `Drop: ${drop}\n` +
-        `Cab Type: ${cabType}`;
+      message = 
+    `Trip Type: One Way (Enquiry)\n` +
+    `Customer Name: ${fullname}\n` +
+    `Customer Contact: ${mobile}\n` +
+    `PickUp Location: ${pickup}\n` +
+    `Drop Location: ${drop}\n` +
+    `Booking Date: ${date}\n` +
+    `Booking Time: ${time}\n` +
+    `Cab Type: ${cabType}\n` +
+    `Distance: ${this.distance} km\n` +
+    `Total Fare: ₹${this.price}\n`
     }
 
     const requestBody = {
@@ -161,38 +185,34 @@ export class OneWayComponent {
         console.log(response);
       },
       error: (error) => {
-        alert('Error sending form: ' + error.message);
+        
       }
     })
   }
 
-  bookTaxi() {
-    this.notifyAdmin('booking');
-    this.notifyUser();
-  }
-
   notifyUser() {
     const { fullname, date, time, pickup, drop, email, mobile, cabType } = this.form;
-    const message =
-      `Dear ${fullname},\n\n` +
-      `Thank you for choosing Dropxtaxi🚖! We're delighted to confirm your taxi booking. Here are the details of your trip:\n` +
-      `One Way (Confirmation)\n` +
-      `Booking Date: ${date}\n` +
-      `Booking Time: ${time}\n` +
-      `PickUp location: ${pickup}\n` +
-      `Drop location: ${drop}\n` +
+    const message = 
+      `Welcome to Drop X Taxi\n\n` +
+      `Booking Details(Confirmation):\n` +
+      `Name: ${fullname}\n` +
+      `Mobile No: ${mobile}\n` +
+      `PickUp: ${pickup}\n` +
+      `Drop: ${drop}\n` +
+      `Date: ${date}\n` +
+      `Time: ${time}\n` +
+      `Cab Type: ${cabType}\n` +
+      `Trip Type: One Way\n` +
       `Distance: ${this.distance} km\n` +
-      `Estimated Price: ₹${this.price}\n\n` +
-      `Please be ready at the pickup location 5 minutes before your scheduled time.\n` +
-      `If you need any assistance, feel free to contact our support team at 6382584853 or subashayyanar1@gmail.com.\n\n` +
-      `We hope you enjoy a safe and comfortable journey!\n` +
-      `Best regards,\n` +
-      `Dropxtaxi\n` +
-      `6382584853\n` +
-      `www.dropxtaxi.com`;
+      `Duration: ${this.duration}\n` +
+      `Total Fare: ₹${this.price}\n` +
+      `Extra Charges: Toll + Parking & permit + HillStation}\n\n` +
+      `Customer Care: 8680080666\n\n` +
+      `Thanks for choosing Drop X Taxi!\n` +
+      `For more details, visit: https://dropxtaxi.com/`;
 
     const whatsappmsg =
-      `Taxi Booking Details\n\n` +
+      `Taxi Booking Details(Confirmation)\n\n` +
       `Hello! I have just booked a taxi with Dropxtaxi, and here are my booking details:\n\n` +
       `One Way(Confirmation)\n` +
       `My Name : ${fullname}\n` +
@@ -215,7 +235,7 @@ export class OneWayComponent {
         console.log(response);
       },
       error: (error) => {
-        alert('Error sending form: ' + error.message);
+
       }
     })
 

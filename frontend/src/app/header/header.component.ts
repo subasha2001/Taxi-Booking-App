@@ -10,7 +10,7 @@ import { RouterLink } from '@angular/router';
 })
 export class HeaderComponent {
   sideNavOpen = false; // State to toggle side navigation
-  tickerMessage = 'Welcome to Drop Taxi, Your Journey Our Priority!';
+  tickerMessage = 'Welcome to Drop X Taxi | We have services all over South India | One Way trip, One way tariff | Your Journey Our Priority! | 8680080666';
 
   toggleSideNav() {
     this.sideNavOpen = !this.sideNavOpen;

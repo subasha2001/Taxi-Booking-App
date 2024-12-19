@@ -3,22 +3,27 @@ const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const dbConnect = require('./config/dbconfig');
+// const dbConnect = require('./config/dbconfig');
 const app = express();
 const twilio = require('twilio');
 const nodemailer = require('nodemailer');
 const Otp = require('./models/otpModel')
-dbConnect();
+// dbConnect();
 
 app.use(bodyParser.json());
 const port = process.env.PORT
 
-app.use(cors());
+app.use(cors(
+    {methods: ['GET,POST,PUT,DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'access_token'],
+    origin: ['http://localhost:4200', 'https://dropxtaxi.com', 'https://www.dropxtaxi.com'],
+    credentials: true,}
+));
 
 const client = new twilio(process.env.TWILIO_SID, process.env.TWILIO_TOKEN);
 
 let otps = {};
-app.post('/send-otp', async (req, res) => {
+app.post('/api/send-otp', async (req, res) => {
     const { mobile } = req.body;
 
     if (!mobile) {
@@ -34,10 +39,10 @@ app.post('/send-otp', async (req, res) => {
         from: 'whatsapp:+14155238886',
         to: `whatsapp:+91${mobile}`
     }).then(() => res.status(200).json('OTP sent successfully'))
-    .catch((err) => res.status(500).send(err.message));
+        .catch((err) => res.status(500).send(err.message));
 });
 
-app.post('/verify-otp', (req, res) => {
+app.post('/api/verify-otp', (req, res) => {
     const { mobile, otp } = req.body;
 
     if (!mobile || !otp) return res.status(400).json('Phone number and OTP are required.');
@@ -50,7 +55,7 @@ app.post('/verify-otp', (req, res) => {
     return res.status(400).json('Invalid OTP.');
 });
 
-app.post('/autocomplete', async (req, res) => {
+app.post('/api/autocomplete', async (req, res) => {
     const query = req.body.query;
     try {
         const response = await axios.get(`https://maps.googleapis.com/maps/api/place/autocomplete/json`, {
@@ -66,18 +71,29 @@ app.post('/autocomplete', async (req, res) => {
     }
 });
 
-app.post('/distance', async (req, res) => {
+app.post('/api/distance', async (req, res) => {
     const { origin, destination } = req.body;
+
     try {
-        const response = await axios.get(`https://maps.googleapis.com/maps/api/distancematrix/json?origins=${origin}&destinations=${destination}&key=${process.env.GAPI}`);
-        const distance = response.data.rows[0].elements[0].distance.value;
-        res.json({ distance });
+        const response = await axios.get(
+            `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${origin}&destinations=${destination}&key=${process.env.GAPI}`
+        );
+        const distanceInKm = response.data.rows[0].elements[0].distance.text;
+        const duration = response.data.rows[0].elements[0].duration.text;
+
+        const distance = parseFloat(distanceInKm.replace(' km', '').replace(',', ''));
+        res.json({ 
+            distance, 
+            duration 
+        });
+
     } catch (error) {
-        res.status(500).send(error.message);
+        console.error("Error fetching data from Google Maps API:", error.message);
+        res.status(500).send("Unable to calculate distance and duration.");
     }
 });
 
-app.post('/send-whatsapp', (req, res) => {
+app.post('/api/send-whatsapp', (req, res) => {
     const { to, message } = req.body; // to is the recipient phone number in WhatsApp format (e.g., "whatsapp:+919876543210")
 
     const jsonString = message.split('Estimate Request: ')[1];
@@ -108,7 +124,7 @@ app.post('/send-whatsapp', (req, res) => {
         });
 });
 
-app.post('/send-admin', async (req, res) => {
+app.post('/api/send-admin', async (req, res) => {
     const { message } = req.body;
     const transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -133,13 +149,15 @@ app.post('/send-admin', async (req, res) => {
                 text: message,
             }
         );
+        console.log('sent to admin');
         res.status(200).json({ success: true, data: response.data });
     } catch (error) {
+        console.log('cannot send to admin');
         res.status(500).send({ success: false, error: error.message });
     }
 });
 
-app.post('/send-user', async (req, res) => {
+app.post('/api/send-user', async (req, res) => {
     const { message, to } = req.body;
 
     const transporter = nodemailer.createTransport({
@@ -152,7 +170,7 @@ app.post('/send-user', async (req, res) => {
 
     const mailOptions = {
         from: process.env.EMAIL_USER,
-        to:to,
+        to: to,
         text: message
     };
     try {

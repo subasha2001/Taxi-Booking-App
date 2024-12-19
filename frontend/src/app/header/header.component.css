@@ -3,7 +3,7 @@ nav {
     justify-content: space-between;
     align-items: center;
     padding: 0 0 0 15px;
-    background-color: #FFB800;
+    background-color: #000;
     color: #fff;
     position: sticky;
     top: 0;
@@ -14,7 +14,7 @@ nav {
 .menu-icon {
     font-size: 30px;
     cursor: pointer;
-    color: #333;
+    color: #fff;
     transition: color 0.3s;
 }
 
@@ -33,38 +33,32 @@ nav {
     height: auto;
 }
 
-/* Links Styles */
 .links a {
     color: #333;
     text-decoration: none;
     margin: 0 20px;
     font-weight: 500;
     transition: color 0.3s;
+    display: none;
 }
 
 .links a:hover {
     color: #0066FF;
-    /* Electric Blue */
 }
 
-/* Side Navigation Styles */
 .side-nav {
     position: fixed;
     top: 103px;
     left: -250px;
-    /* Initially hidden */
     width: 250px;
     height: 100%;
     background-color: #333;
-    /* Dark background for sidenav */
     color: #fff;
     transition: left 0.3s ease;
     z-index: 15;
     box-shadow: 2px 0px 15px rgba(0, 0, 0, 0.5);
-    /* Shadow effect */
 }
 
-/* When the side-nav is open */
 .side-nav.open {
     left: 0;
 }
@@ -93,7 +87,6 @@ nav {
     color: #333;
 }
 
-/* News Ticker */
 .news-ticker {
     background-color: #FF9800;
     color: #fff;
@@ -105,13 +98,12 @@ nav {
 
 .news-ticker h2 {
     display: inline-block;
-    animation: scroll-left 15s linear infinite;
+    animation: scroll-left 20s linear infinite;
     margin: 0;
     font-size: 18px;
     font-weight: 600;
 }
 
-/* Animation for scrolling ticker */
 @keyframes scroll-left {
     from {
         transform: translateX(100%);
@@ -123,9 +115,6 @@ nav {
 }
 
 @media (max-width: 768px) {
-    nav {
-        padding: 10px;
-    }
 
     .menu-icon {
         font-size: 28px;

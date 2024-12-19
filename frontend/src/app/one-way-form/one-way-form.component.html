@@ -1,62 +1,104 @@
 <form #bookingForm="ngForm">
-    <div class="form-row">
-        <input type="text" placeholder="Full Name" name="fullname" required [(ngModel)]="form.fullname" />
-        <input type="text" placeholder="Mobile Number" name="mobile" required [(ngModel)]="form.mobile" />
-        <!-- <button type="button" (click)="sendOTP()" [disabled]="otpSent">Send OTP</button> -->
-    </div>
+    <div class="section-1" *ngIf="!fareVisible">
+        <div class="form-row">
+            <input type="text" placeholder="Full Name" name="fullname" required [(ngModel)]="form.fullname" />
+            <input type="text" placeholder="Mobile Number" name="mobile" required [(ngModel)]="form.mobile" />
+            <!-- <button type="button" (click)="sendOTP()" [disabled]="otpSent">Send OTP</button> -->
+        </div>
 
-    <!-- <div class="form-row" *ngIf="otpSent && !otpVerified">
+        <!-- <div class="form-row" *ngIf="otpSent && !otpVerified">
         <input type="text" placeholder="Enter OTP" name="otp" required [(ngModel)]="form.otp" />
         <button type="button" (click)="verifyOTP()">Verify OTP</button>
-    </div> -->
+        </div> -->
 
-    <div class="form-row">
-        <input type="date" name="date" required [(ngModel)]="form.date" />
-        <input type="time" name="time" required [(ngModel)]="form.time" />
-    </div>
-
-    <div class="form-row">
-        <input type="text" placeholder="Pickup Location" name="pickup" required [(ngModel)]="form.pickup"
-            (input)="onLocationInput('pickup', $event)" />
-        <div *ngIf="pickupSuggestions.length" class="suggestions-container">
-            <ul>
-                <li *ngFor="let suggestion of pickupSuggestions" (click)="selectLocation('pickup', suggestion)">
-                    {{ suggestion }}
-                </li>
-            </ul>
+        <div class="form-row">
+            <input type="date" name="date" required [(ngModel)]="form.date" />
+            <input type="text" name="time" placeholder="Select a time" [ngxTimepicker]="picker" readonly required
+                [(ngModel)]="form.time" />
+            <ngx-material-timepicker #picker></ngx-material-timepicker>
         </div>
 
-        <input type="text" placeholder="Drop Location" name="drop" required [(ngModel)]="form.drop"
-            (input)="onLocationInput('drop', $event)" />
-        <div *ngIf="dropSuggestions.length" class="suggestions-container">
-            <ul>
-                <li *ngFor="let suggestion of dropSuggestions" (click)="selectLocation('drop', suggestion)">
-                    {{ suggestion }}
-                </li>
-            </ul>
-        </div>
-    </div>
+        <div class="form-row">
+            <input type="text" placeholder="Pickup Location" name="pickup" required [(ngModel)]="form.pickup"
+                (input)="onLocationInput('pickup', $event)" />
+            <div *ngIf="pickupSuggestions.length" class="suggestions-container">
+                <ul>
+                    <li *ngFor="let suggestion of pickupSuggestions" (click)="selectLocation('pickup', suggestion)">
+                        {{ suggestion }}
+                    </li>
+                </ul>
+            </div>
 
-    <div class="form-row email">
-        <input type="email" placeholder="Email" name="email" required [(ngModel)]="form.email" />
-    </div>
-
-    <div class="cab-selection">
-        <h3>Select Cab Type</h3>
-        <div class="cabs">
-            <div *ngFor="let cab of cabTypes" class="cab-type-icon" [class.selected]="cab.selected"
-                (click)="selectCabType(cab)">
-                <img [src]="cab.selected ? cab.icon1 : cab.icon2" alt="{{ cab.name }} icon" class="cab-icon" />
-                <span>{{ cab.name }}<br>{{ cab.fare }}km/hr</span>
+            <input type="text" placeholder="Drop Location" name="drop" required [(ngModel)]="form.drop"
+                (input)="onLocationInput('drop', $event)" />
+            <div *ngIf="dropSuggestions.length" class="suggestions-container">
+                <ul>
+                    <li *ngFor="let suggestion of dropSuggestions" (click)="selectLocation('drop', suggestion)">
+                        {{ suggestion }}
+                    </li>
+                </ul>
             </div>
         </div>
+
+        <div class="form-row email">
+            <input type="email" placeholder="Email" name="email" required [(ngModel)]="form.email" />
+        </div>
+
+        <div class="cab-selection">
+            <h4>Select Your Cab</h4>
+            <div class="cab-container">
+                <div class="cab-card" *ngFor="let cab of cabTypes" (click)="selectCab(cab.name)">
+                    <div class="cab-name">
+                        {{ cab.name }}
+                    </div>
+                    <img [src]="selectedCab === cab.name ? cab.icon2 : cab.icon1" alt="{{ cab.name }}"
+                        class="cab-image" />
+                    <div class="cab-name">
+                        {{ cab.fare }}/km
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button (click)="viewPrice()">Get Estimate</button>
     </div>
+    <div *ngIf="fareVisible" class="section-2">
+        <div class="toggle-buttons">
+            <button (click)="showCabDetailsView()">Cab Details</button>
+            <button (click)="showTripDetailsView()">Trip Details</button>
+        </div>
 
-    <button (click)="getEstimate()" [disabled]="price">Get Estimate</button>
+        <div *ngIf="showCabDetails">
+            <h3>Cab Details</h3>
+            <div class="cab-container">
+                <div class="cab-card" *ngFor="let cab of cabTypes">
+                    <img [src]="cab.img" alt="{{ cab.name }}" class="cab-image" />
 
-    <div *ngIf="price">
-        <p>Estimated Price: {{ price | currency:'INR' }}</p>
-        <p *ngIf="distance">Distance: {{ distance }} km</p>
-        <button (click)="bookTaxi()">Book</button>
+                    <div class="cab-info">
+                        <h4>{{ cab.name }}</h4>
+                        <p>Distance: {{distance}}Kms</p>
+                        <p>Duration: {{duration}}</p>
+                        <p>
+                            Total Price: ₹{{ calculateTotalPrice(cab) }}
+                        </p>
+                    </div>
+
+                    <button (click)="bookCab(cab.name)">Book Now</button>
+
+                    <div class="hint-section">
+                        <small>Hint: Driver Betta include, Toll Gate, Other State Permit, Hills Station({{cab.betta}}),
+                            waiting Chrge(150/hr) and Parking Charges Extra.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="!showCabDetails">
+            <h3>Trip Details</h3>
+            <p>Pickup Location: {{ form.pickup }}</p>
+            <p>Drop Location: {{ form.drop }}</p>
+            <p>Distance: {{ distance }} km</p>
+            <p>Fare: ₹{{ price }}</p>
+        </div>
     </div>
 </form>
