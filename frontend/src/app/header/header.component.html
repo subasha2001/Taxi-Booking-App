@@ -3,19 +3,23 @@
     <div class="logo"><a routerLink="/"><img src="/assets/images/logo.gif" alt=""></a></div>
     <div class="links">
         <a routerLink="/contact">Contact</a>
-        <a routerLink="/contact">About Us</a>
+        <a routerLink="/contact">Services</a>
     </div>
 </nav>
 <div class="news-ticker">
-    <h2>{{ tickerMessage }}</h2>
+    <div class="ticker-wrapper">
+        <span *ngFor="let news of newsItems">{{ news }}</span>
+        <span *ngFor="let news of newsItems">{{ news }}</span>
+        <span *ngFor="let news of newsItems">{{ news }}</span>
+        <span *ngFor="let news of newsItems">{{ news }}</span>
+    </div>
 </div>
 <aside class="side-nav" [class.open]="sideNavOpen">
     <ul>
-        <li><a href="/">Home</a></li>
-        <li><a routerLink="/contact">Services</a></li>
-        <li><a routerLink="/contact">Gallery</a></li>
-        <li><a routerLink="/contact">Tarrifs</a></li>
-        <li><a routerLink="/contact">Contact</a></li>
-        <li><a routerLink="/contact">About Us</a></li>
+        <li><a href="/" (click)="closeSideNav()">Home</a></li>
+        <li><a routerLink="/services" (click)="closeSideNav()">Services</a></li>
+        <li><a routerLink="/gallery" (click)="closeSideNav()">Gallery</a></li>
+        <li><a routerLink="/contact" (click)="closeSideNav()">Tarrifs</a></li>
+        <li><a routerLink="/contact" (click)="closeSideNav()">Contact</a></li>
     </ul>
 </aside>

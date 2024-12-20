@@ -1,4 +1,4 @@
-<form #bookingForm="ngForm">
+<form #bookingForm="ngForm" class="oneWay">
     <div class="section-1" *ngIf="!fareVisible">
         <div class="form-row">
             <input type="text" placeholder="Full Name" name="fullname" required [(ngModel)]="form.fullname" />
@@ -12,7 +12,7 @@
         </div> -->
 
         <div class="form-row">
-            <input type="date" name="date" required [(ngModel)]="form.date" />
+            <input type="date" name="date" required [(ngModel)]="form.date" placeholder="Enter Date"/>
             <input type="text" name="time" placeholder="Select a time" [ngxTimepicker]="picker" readonly required
                 [(ngModel)]="form.time" />
             <ngx-material-timepicker #picker></ngx-material-timepicker>
@@ -49,12 +49,12 @@
             <div class="cab-container">
                 <div class="cab-card" *ngFor="let cab of cabTypes" (click)="selectCab(cab.name)">
                     <div class="cab-name">
-                        {{ cab.name }}
+                        {{ cab.fare }}/km
                     </div>
                     <img [src]="selectedCab === cab.name ? cab.icon2 : cab.icon1" alt="{{ cab.name }}"
                         class="cab-image" />
                     <div class="cab-name">
-                        {{ cab.fare }}/km
+                        {{ cab.name }}
                     </div>
                 </div>
             </div>
@@ -63,12 +63,7 @@
         <button (click)="viewPrice()">Get Estimate</button>
     </div>
     <div *ngIf="fareVisible" class="section-2">
-        <div class="toggle-buttons">
-            <button (click)="showCabDetailsView()">Cab Details</button>
-            <button (click)="showTripDetailsView()">Trip Details</button>
-        </div>
-
-        <div *ngIf="showCabDetails">
+        <div>
             <h3>Cab Details</h3>
             <div class="cab-container">
                 <div class="cab-card" *ngFor="let cab of cabTypes">
@@ -91,14 +86,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div *ngIf="!showCabDetails">
-            <h3>Trip Details</h3>
-            <p>Pickup Location: {{ form.pickup }}</p>
-            <p>Drop Location: {{ form.drop }}</p>
-            <p>Distance: {{ distance }} km</p>
-            <p>Fare: ₹{{ price }}</p>
         </div>
     </div>
 </form>

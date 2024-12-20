@@ -39,6 +39,7 @@ input[type=email], input[type=number] {
 
 input::placeholder {
     color: #000;
+    font-size: 18px;
 }
 
 button {
@@ -132,7 +133,7 @@ button:hover {
     position: absolute;
     width: 100%;
     z-index: 1000;
-    top: 170px;
+    top: 38%;
     left: 0px;
 }
 
@@ -161,7 +162,7 @@ button:hover {
 }
 
 .section-1 .cab-selection h4 {
-    margin-bottom: 10px;
+    margin: 0px;
     font-size: 1.2em;
     text-align: center;
     color: white;
@@ -252,7 +253,7 @@ button:hover {
     }
 
     .section-1 .cab-card {
-        width: 45px;
+        width: 40px;
     }
 
     .section-1 .cab-card img {

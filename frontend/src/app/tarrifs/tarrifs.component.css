@@ -5,9 +5,8 @@
 .tarrif-container {
     padding: 5% 0;
     font-family: Arial, sans-serif;
-    border-radius: 10px;
-    margin: 20px auto;
-    background-image: url("/assets/images/home-bg2.jpg");
+    margin: 0px auto;
+    background-image: url(/assets/images/home-bg3.webp);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -64,7 +63,10 @@ h4 {
 }
 
 h4 {
-    font-size: 18px;
+    font-size: 25px;
+    margin: 10px auto;
+    letter-spacing: 3px;
+    font-weight: 800;
 }
 
 .cab-cards {
@@ -74,7 +76,7 @@ h4 {
 }
 
 .cab-card {
-    background-color: #fff;
+    background-color: #2b2e4a;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
@@ -108,7 +110,7 @@ h4 {
 
 .cab-details p {
     font-size: 16px;
-    color: #0066FF;
+    color: #fff;
     margin: 10px 0;
 }
 
@@ -118,9 +120,13 @@ h4 {
     align-items: center;
 }
 .terms {
-    margin-top: 30px;
     font-size: 16px;
     color: #555;
+    background-image: url(/assets/images/home-bg4.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .terms h5 {
@@ -208,7 +214,8 @@ li span {
     }
 
     h3 {
-        font-size: 20px;
+        font-size: 26px;
+        margin: 0;
     }
 
     h5,
@@ -255,6 +262,9 @@ li span {
     .terns-n-img {
         padding: 15px 0;
         gap: 15px;
+    }
+    .terms-n-conditions{
+        gap: 0;
     }
     .tarrif-section{max-width: 90%;}
 }

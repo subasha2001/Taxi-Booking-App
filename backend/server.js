@@ -20,6 +20,11 @@ app.use(cors(
     credentials: true,}
 ));
 
+app.get('/api/test', async(req, res)=>{
+    const msg = 'Hi'
+    res.send(msg);
+})
+
 const client = new twilio(process.env.TWILIO_SID, process.env.TWILIO_TOKEN);
 
 let otps = {};
@@ -64,7 +69,7 @@ app.post('/api/autocomplete', async (req, res) => {
                 key: process.env.GAPI
             }
         });
-        res.json(response.data);
+        res.send(response.data);
     } catch (error) {
         console.log(error);
         res.status(500).send({ error: 'Error fetching autocomplete suggestions' });

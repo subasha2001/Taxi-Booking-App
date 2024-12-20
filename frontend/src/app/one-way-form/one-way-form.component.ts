@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TaxiBookingService } from '../services/taxi-booking.service';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'one-way-form',
@@ -31,17 +31,17 @@ export class OneWayComponent {
   distance: number = 0;
   duration:number = 0;
   fareVisible: boolean = false;
-  showCabDetails: boolean = true;
   selectedCab:string='';
+  @Output() formSubmitted = new EventEmitter<void>();
 
   cabTypes = [
-    { name: 'Sedan-Dzire', betta: 400, icon1: 'assets/images/sedan_black.png', icon2: 'assets/images/sedan_yellow.png', img:'/assets/images/cab1.png', fare: 14 },
-    { name: 'SUV', betta: 500, icon1: 'assets/images/suv_black.png', icon2: 'assets/images/suv_yellow.png', img:'/assets/images/cab2.jpg', fare: 19 },
+    { name: 'Sedan', betta: 400, icon1: 'assets/images/sedan_black.png', icon2: 'assets/images/sedan_yellow.png', img:'/assets/images/cab1.png', fare: 14 },
+    { name: 'SUV', betta: 500, icon1: 'assets/images/suv_black.png', icon2: 'assets/images/suv_yellow.png', img:'/assets/images/cab2.png', fare: 19 },
     { name: 'Innova', betta: 500, icon1: 'assets/images/innova_black.png', icon2: 'assets/images/innova_yellow.png', img:'/assets/images/cab3.png', fare: 20 },
-    { name: 'Innova-Crysta', betta: 600, icon1: 'assets/images/crysta_black.png', icon2: 'assets/images/crysta_yellow.png', img:'/assets/images/cab4.jpg', fare: 26 }
+    { name: 'Innova-Crysta', betta: 600, icon1: 'assets/images/crysta_black.png', icon2: 'assets/images/crysta_yellow.png', img:'/assets/images/cab4.png', fare: 26 }
   ];
 
-  constructor(private taxiBookingService: TaxiBookingService) { }
+  constructor(private taxiBookingService: TaxiBookingService, private router: Router) { }
 
   selectCab(cab: any) {
     this.selectedCab = cab;
@@ -106,7 +106,7 @@ export class OneWayComponent {
   // }
 
   viewPrice() {
-    const { fullname, mobile, date, time, email, pickup, drop } = this.form;
+    const { fullname, mobile, date, time, email, pickup, drop, cabType } = this.form;
 
     if (!fullname || !mobile || !date || !time || !email || !pickup || !drop) {
       alert('Please fill in all the required fields before viewing the fare.');
@@ -121,13 +121,12 @@ export class OneWayComponent {
       }
       this.distance = Math.max(distanceInKm, 130);
       this.duration = duration;
+      this.price = this.calculateTotalPrice(cabType);
       this.fareVisible = true;
-      this.notifyAdmin('enquiry');
+      this.formSubmitted.emit();
+      // this.notifyAdmin('enquiry');
     });
   }
-
-  showCabDetailsView() { this.showCabDetails = true }
-  showTripDetailsView() { this.showCabDetails = false }
 
   calculateTotalPrice(cab: any): number {
     const totalPrice = this.distance * cab.fare + cab.betta;
@@ -145,27 +144,28 @@ export class OneWayComponent {
   }
 
   notifyAdmin(type: string) {
-    const { fullname, mobile, date, time, pickup, drop, cabType } = this.form;
+    const { fullname, mobile, date, time, pickup, drop, cabType, email } = this.form;
     let message = '';
     if (type === 'booking') {
       message = 
     `Trip Type: One Way (Booking)\n` +
     `Customer Name: ${fullname}\n` +
     `Customer Contact: ${mobile}\n` +
+    `Customer Email: ${email}\n` +
     `PickUp Location: ${pickup}\n` +
     `Drop Location: ${drop}\n` +
     `Booking Date: ${date}\n` +
     `Booking Time: ${time}\n` +
     `Cab Type: ${cabType}\n` +
     `Distance: ${this.distance} km\n` +
-    `Duration: ${this.duration} km\n` +
-    `Total Fare: ₹${this.price}\n`
+    `Duration: ${this.duration} km\n`
 
     } else if (type === 'enquiry') {
       message = 
     `Trip Type: One Way (Enquiry)\n` +
     `Customer Name: ${fullname}\n` +
     `Customer Contact: ${mobile}\n` +
+    `Customer Email: ${email}\n` +
     `PickUp Location: ${pickup}\n` +
     `Drop Location: ${drop}\n` +
     `Booking Date: ${date}\n` +

@@ -1,12 +1,13 @@
 <div class="background-container">
     <div class="content-container">
         <h2>Book Your Ride</h2>
-        <div class="form-toggle">
+        <div class="form-toggle" *ngIf="showFormToggle">
             <button [class.active]="isOneWay" (click)="toggleForm(true)">One Way</button>
             <button [class.active]="!isOneWay" (click)="toggleForm(false)">Round Trip</button>
         </div>
-        <one-way-form class="form" *ngIf="isOneWay"></one-way-form>
+        <one-way-form class="form" *ngIf="isOneWay" (formSubmitted)="toggleDiv(true)"></one-way-form>
         <round-trip-form class="form" *ngIf="!isOneWay"></round-trip-form>
     </div>
+<p class="content">Drop X Taxi, is the rapid growing Intercity cab service provider in South India. We provide online cab booking services for the customer who needs cabs for scheduled/unplanned travels. We offer cab for One-way trip and Round trip to Outstation travels also. We are best in offering Hourly Packages for travel within South India. We are an aggregator for cab services it attaches cab owners/drivers after training them and All our cabs are fully equipped with Air conditioner</p>
 </div>
 <tarrifs></tarrifs>

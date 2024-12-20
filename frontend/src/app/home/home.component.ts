@@ -15,8 +15,13 @@ import { TariffsComponent } from "../tarrifs/tarrifs.component";
 })
 export class HomeComponent {
   isOneWay: boolean = true;
+  showFormToggle: boolean = true;
 
   toggleForm(isOneWay: boolean) {
     this.isOneWay = isOneWay;
+  }
+
+  toggleDiv(isOneWay:boolean){
+    this.showFormToggle = !isOneWay;
   }
 }

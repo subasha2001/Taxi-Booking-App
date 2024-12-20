@@ -8,7 +8,8 @@ import { Observable } from 'rxjs';
 export class TaxiBookingService {
 
   // private BaseUrl = 'https://dropxtaxi.com/api';
-  private BaseUrl = 'http://localhost:3002/api';
+  private BaseUrl = 'https://dropxtaxi.com/api';
+  // private BaseUrl = 'http://localhost:3002/api';
 
   constructor(private http: HttpClient) {}
 

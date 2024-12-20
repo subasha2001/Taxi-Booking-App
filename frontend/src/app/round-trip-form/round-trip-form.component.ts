@@ -37,10 +37,10 @@ export class RoundTripComponent {
   selectedCab:string='';
 
   cabTypes = [
-    { name: 'Sedan-Dzire', betta: 400, icon1: 'assets/images/sedan_black.png', icon2: 'assets/images/sedan_yellow.png', img:'/assets/images/cab1.png', fare: 13 },
-    { name: 'SUV', betta: 500, icon1: 'assets/images/suv_black.png', icon2: 'assets/images/suv_yellow.png', img:'/assets/images/cab2.jpg', fare: 18 },
+    { name: 'Sedan', betta: 400, icon1: 'assets/images/sedan_black.png', icon2: 'assets/images/sedan_yellow.png', img:'/assets/images/cab1.png', fare: 13 },
+    { name: 'SUV', betta: 500, icon1: 'assets/images/suv_black.png', icon2: 'assets/images/suv_yellow.png', img:'/assets/images/cab2.png', fare: 18 },
     { name: 'Innova', betta: 500, icon1: 'assets/images/innova_black.png', icon2: 'assets/images/innova_yellow.png', img:'/assets/images/cab3.png', fare: 19 },
-    { name: 'Innova-Crysta', betta: 600, icon1: 'assets/images/crysta_black.png', icon2: 'assets/images/crysta_yellow.png', img:'/assets/images/cab4.jpg', fare: 23 }
+    { name: 'Innova-Crysta', betta: 600, icon1: 'assets/images/crysta_black.png', icon2: 'assets/images/crysta_yellow.png', img:'/assets/images/cab4.png', fare: 23 }
   ];
 
   constructor(private taxiBookingService: TaxiBookingService) { }

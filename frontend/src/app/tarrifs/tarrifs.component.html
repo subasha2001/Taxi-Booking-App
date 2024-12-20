@@ -15,10 +15,11 @@
                     <div class="cab-details">
                         <h5>{{ cab.name }}</h5>
                         <div class="betta-hills">
+                            <p>Per Km :{{ cab.rsPerKm | currency:"INR" }} /Km</p>
                             <p><b>Driver Betta :</b> {{ cab.betta | currency:"INR" }}</p>
-                            <p><b>Hills :</b> {{ cab.betta | currency:"INR" }}</p>
                         </div>
                         <div class="waiting-price">
+                            <p><b>Hill Station :</b> {{ cab.betta | currency:"INR" }}</p>
                             <p>Waiting :{{ cab.waiting | currency:"INR" }} /Hour</p>
                         </div>
                     </div>
@@ -40,7 +41,8 @@
                             <p><b>Hills :</b> {{ cab.betta | currency:"INR" }}</p>
                         </div>
                         <div class="waiting-price">
-                            <p>Waiting {{ cab.waiting | currency:"INR" }} /Hour</p>
+                            <p>Fare :{{ cab.rsPerKm | currency:"INR" }} /Km</p>
+                            <p>Waiting :{{ cab.waiting | currency:"INR" }} /Hour</p>
                         </div>
                     </div>
                 </div>
@@ -59,12 +61,12 @@
                     <li><span>Maximum 7 passenger capacity for SUV.</span></li>
                     <li><span>Minimum 130kms coverage for one way trip.</span></li>
                     <li><span>Minimum 250kms coverage for round trip.</span></li>
-                    <li><span>One day Round trip close by 11pm at ur pickup.</span></li>
+                    <li><span>One day Round trip starting time 6 am closing time 12pm at ur pickup.</span></li>
                     <li><span>Waiting charges per Hour SEDAN - Rs.150 | SUV - Rs. 200 | INNOVA - Rs.200 | INNOVA CRYSTA
                             - Rs.250 in between ur trip.</span></li>
                     <li><span>Food break, tea break & restroom no waiting charges.</span></li>
                     <li><span>Cancellation charges Rs.500 after driver arrived.</span></li>
-                    <li><span>Luggage load in carrier Rs.300 if Mention in QT.</span></li>
+                    <li><span>Luggage load in carrier Rs.400 if Mention in QT.</span></li>
                 </ul>
                 <ul>
                     <li><span>Note down starting and ending km is must.</span></li>
@@ -74,7 +76,7 @@
                     <li><span>EOT calculated running km, Toll by fastag & rest all.</span></li>
                     <li><span>Toll fees, interstate Permit, Hill charg pet charges (if any) are extra.</span></li>
                     <li><span>For Bangalore minimum 300km per day for Round Trip(Morning 6am to Night 10pm).</span></li>
-                    <li><span>One day means One calendar day (Morning 6am to Night 12pm).</span></li>
+                    <!-- <li><span>One day means One calendar day (Morning 6am to Night 12pm).</span></li> -->
                 </ul>
             </div>
         </div>

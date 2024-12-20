@@ -14,12 +14,13 @@
 
 h2 {
   text-align: center;
-  font-size: 30px;
-  margin: 0 0 15px;
-  background-color: #a9a9a9;
+  font-size: 27px;
+  background-color: #0171bd;
   color: #fff;
   border-radius: 5px;
   padding: 10px 0;
+  max-width: 230px;
+  margin: 0 auto 15px;
 }
 
 .content-container {
@@ -42,7 +43,7 @@ h2 {
 .form-toggle button {
   flex: 1;
   padding: 10px 20px;
-  font-size: 16px;
+  font-size: 19px;
   border: none;
   border: 1px solid #0000001a;
   text-align: center;
@@ -74,4 +75,15 @@ h2 {
   padding: 20px;
   border-radius: 4px;
   transition: all 0.5s ease
+}
+
+.content {
+  color: white;
+  margin: 25px auto;
+  padding: 2% 5%;
+  max-width: 1000px;
+  background: #2b2e4a;
+  line-height: 28px;
+  font-size: 18px;
+  text-align: center;
 }

@@ -1,0 +1,31 @@
+.services-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+.service {
+    width: 18%;
+    text-align: center;
+    position: relative;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.service-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.service-name {
+    font-size: 1.2em;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.service:hover {
+    transform: translateY(-10px);
+    opacity: 0.9;
+}
